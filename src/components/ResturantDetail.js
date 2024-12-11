@@ -11,9 +11,10 @@ const ResturantDetail = () => {
     const param = useParams()
     const [restData, setRestData] = useState();
     const popFlag = useSelector((state) => state.cart.popUp)
+    const latlong = useSelector((state) => state.data.latLong)
 
     const getResturantDetail = async()=>{
-        const data = await fetch(RESTURANT_DETAIL.replace('REST_ID', param.id));
+       const data =  await fetch(RESTURANT_DETAIL.replace('latitude', latlong.latitude).replace('longitude', latlong.longitude).replace('REST_ID', param.id));
         const json = await data.json();
         setRestData(json.data.cards)
     }

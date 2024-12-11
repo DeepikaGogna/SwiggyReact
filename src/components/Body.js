@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { HOME_API } from '../utils/constant'
 import WhatsOnMind from "./WhatsOnMind"
 import TopResturant from './TopResturant'
 import OnlineFood from './OnlineFood'
@@ -7,26 +6,13 @@ import BestPlace from './BestPlace'
 import BestCuisines from './BestCuisines'
 import ExploreResturant from './ExploreResturant'
 import Footer from './Footer'
-import { useDispatch } from 'react-redux'
-import {addApiResponse} from "../utils/dataSlice"
+import Search from './Search'
+import { useSelector } from 'react-redux'
+import useGetResturant from '../hooks/useGetResturant'
 const Body = () => {
-    const [resturantData, setResturantData] = useState()
-    const dispatch = useDispatch();
-    useEffect(()=>{
-        fetchResturant()
-    },[])
-    const fetchResturant = async() =>{
-       const data = await fetch(HOME_API);
-       const json = await data.json();
-       setResturantData(json?.data?.cards);
-       let payload = {
-        "nextOffset": json?.data?.pageOffset?.nextOffset,
-        "_csrf": json?.csrfToken,
-        "widgetOffset": json?.data?.pageOffset?.widgetOffset,
-       }
-       dispatch(addApiResponse(payload))
-
-    }
+    useGetResturant()
+    const popFlag = useSelector((state) => state.data.popUp)
+    const resturantData = useSelector((state)=> state.data.apiResponse)
   return (
     <main className='flex flex-col'>
      <div className="ml-40 mr-40">
@@ -47,7 +33,11 @@ const Body = () => {
        <footer>
       <Footer footerData={resturantData?.[10]?.card?.card}/>
     </footer>
+    <div className=''>
+    { popFlag && <Search /> }
+    </div>
     </main>
+    
     
   )
 }

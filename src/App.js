@@ -5,6 +5,7 @@ import ResturantDetail from "./components/ResturantDetail";
 import appStore from "./utils/appStore";
 import { Provider } from "react-redux";
 import Checkout from "./components/Checkout";
+import Search from "./components/Search";
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
             <Route path="/" element={<Body/>} />
             <Route path="/rest/:id" element={<ResturantDetail/>} />
             <Route path="/cart" element={<Checkout />} />
+            <Route path="/search" element={<Search/>} />
           </Routes>
         </BrowserRouter>
       </Provider>
