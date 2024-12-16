@@ -5,23 +5,19 @@ import { OpenPopup, setLocationChange, setcurrentLocation } from '../utils/dataS
 import useCurrentLocation from '../hooks/useGetLocation'
 import { onAuthStateChanged , signOut} from "firebase/auth";
 import {auth} from "../utils/firebase"
+import { addUser, removeUser } from '../utils/loginSlice';
+
 const Header = () => {
-  const [isSignIn, setIsSignIn] = useState({
-    isSignIn:false,
-    displayName:'',
-    photoURL:''
-  }); 
+  const dispatch = useDispatch()
+  const isSignIn = useSelector((state) => state.login.userInfo)
   const count = useSelector((state) => state?.cart?.cartInfo?.length)
   const locationChange = useSelector((state) => state.data.locationChange)
- 
-  const dispatch = useDispatch();
-  const PopupClick = ()=>{
+   const PopupClick = ()=>{
     dispatch(OpenPopup())  
     if(locationChange){
       dispatch(setLocationChange())   
       dispatch(setcurrentLocation())
     }
-
   }
     useCurrentLocation();
 
@@ -30,20 +26,19 @@ const Header = () => {
             if (user) {
               // User is signed in
               const {uid, email, displayName, photoURL} = user;
-              setIsSignIn({
+              dispatch(addUser({
                 isSignIn:true,
-                displayName:displayName,
-                photoURL:photoURL
-              });
-            /*  dispatch(
-                addUser(
-                    {uid: uid, email: email, displayName: displayName, photoURL:photoURL}
-                ));
+                uid,
+                email,
+                displayName,
+                photoURL
+              }
+              ))
+            /*  
                 navigate('/browse') */
             } else {
               // User is signed out
-             /*   dispatch(removeUser())
-                navigate('/') */
+               dispatch(removeUser())
             }
           });
 
@@ -52,11 +47,7 @@ const Header = () => {
     }, [])
     const handleSignOut = ()=>{
       signOut(auth).then(() => {
-        setIsSignIn({
-          isSignIn:false,
-          displayName:'',
-          photoURL:''
-        });
+        dispatch(removeUser())
       }).catch((error) => {
         // An error happened.
       });

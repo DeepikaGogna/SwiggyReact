@@ -9,10 +9,12 @@ import Footer from './Footer'
 import Search from './Search'
 import { useSelector } from 'react-redux'
 import useGetResturant from '../hooks/useGetResturant'
+import Shimmer from './Shimmer'
 const Body = () => {
     useGetResturant()
     const popFlag = useSelector((state) => state.data.popUp)
     const resturantData = useSelector((state)=> state.data.apiResponse)
+    const shimmerArray = [1,2,3,4,5,6,7,8,9]
   return (
     <main className='flex flex-col'>
      <div className="ml-40 mr-40">
@@ -28,6 +30,14 @@ const Body = () => {
         <BestCuisines bestPlace={resturantData?.[7]?.card?.card} />
         <ExploreResturant bestPlace={resturantData?.[8]?.card?.card} />
        </>
+       }
+       {
+        !resturantData && 
+          <div className='grid grid-cols-3 mt-10'>
+             {shimmerArray.map((element, index) => {
+             return <Shimmer key={index} />;
+             })}
+        </div>
        }
        </div>
        <footer>

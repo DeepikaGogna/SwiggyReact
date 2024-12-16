@@ -6,6 +6,7 @@ import appStore from "./utils/appStore";
 import { Provider } from "react-redux";
 import Checkout from "./components/Checkout";
 import Search from "./components/Search";
+import Collection from "./components/Collection";
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
             <Route path="/rest/:id" element={<ResturantDetail/>} />
             <Route path="/cart" element={<Checkout />} />
             <Route path="/search" element={<Search/>} />
+            <Route path="/collections/:id" element={<Collection />} />
           </Routes>
         </BrowserRouter>
       </Provider>

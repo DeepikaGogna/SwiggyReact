@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { BASE_URL } from '../utils/constant'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import {auth} from "../utils/firebase"
+import { useSelector } from 'react-redux';
 
 const Account = () => {
   const [isButtonShow, setIsButtonShow] = useState(true);
@@ -10,6 +11,7 @@ const Account = () => {
   const email = useRef(null);
   const password = useRef(null);
   const fullname = useRef(null)
+  const isSignIn = useSelector((state) => state.login.userInfo)
  // const phoneNumber = useRef(null)
   const submitForm = () => {
     if(!email && !password) return
@@ -50,7 +52,9 @@ const Account = () => {
   }
 
   return (
-    <div className='flex-1 mx-8 bg-white p-8 relative'>
+    <div>
+     {!isSignIn.isSignIn && 
+    <>
         <div className='font-bold'>Account</div>
         <p className='text-gray-500 text-base'>To place your order now, log in to your existing account or sign up.</p>
         <img className="absolute w-36 h-36 right-10" src={BASE_URL + 'Image-login_btpq7r'} alt=""/>
@@ -88,6 +92,7 @@ const Account = () => {
           </p>
 
         </div> }
+    </> }
     </div>
   )
 }

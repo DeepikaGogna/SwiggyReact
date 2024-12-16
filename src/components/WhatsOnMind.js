@@ -1,5 +1,6 @@
 import React from 'react'
 import { BASE_URL } from '../utils/constant'
+import { Link } from 'react-router-dom'
 const WhatsOnMind = ({whatsOnMind}) => {
   const title = whatsOnMind?.header?.title
   const BannerImgs = whatsOnMind.imageGridCards.info
@@ -10,7 +11,12 @@ const WhatsOnMind = ({whatsOnMind}) => {
      {
       BannerImgs.map((img,index) => {
         return (
-        <img key={index} className="w-36" src={BASE_URL+img.imageId} alt={img.action.text} />
+          <>
+           <Link to={img.action.link.replace('https://www.swiggy.com/','/')}>
+          <img key={index} className="w-36 max-w-none" src={BASE_URL+img.imageId} alt={img.action.text} />
+            </Link> 
+          </>
+      
       )
       })
      } 
