@@ -23,7 +23,7 @@ const ResturantDetail = () => {
     },[])
   return (
     <>
-    <div className='min-w-[800px] max-w-[800px] m-auto'>{
+    <div className='w-4/6 mx-auto'>{
         restData &&  
         <>
         <ResturantInfo resturantInfo={restData?.[2]?.card?.card}/>

@@ -10,10 +10,14 @@ const TopResturant = ({topResturant}) => {
     <div className='flex overflow-auto mt-8 gap-8 pb-4'>
     {
     restaurants.map((restaurant, index)=> {
-        const {cloudinaryImageId, avgRating, cuisines, name, areaName, sla, id} = restaurant.info
+        const {cloudinaryImageId, avgRating, cuisines, name, areaName, sla, id, loyaltyDiscoverPresentationInfo} = restaurant.info
         return(
-          <Link  key={index} to={'rest/'+ id}><div className='cursor-pointer'>
+          <Link  key={index} to={'rest/'+ id}>
+            <div className='cursor-pointer relative'>
             <img className="w-64 h-52 max-w-none rounded-lg transition ease-in-out  hover:-translate-y-1 hover:scale-110  duration-100" src={BASE_URL + cloudinaryImageId} alt="" />
+            <div className='absolute top-3 -left-1'>
+                        {loyaltyDiscoverPresentationInfo?.freedelMessage}
+            </div>
             <div>
                 <div className='text-xl font-bold'>{name}</div>
                 <div className='text-base font-bold flex'>

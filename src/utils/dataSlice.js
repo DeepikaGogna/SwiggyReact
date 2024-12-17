@@ -10,7 +10,8 @@ const dataSlice = createSlice({
              longitude :'76.78890'
         },
         locationChange:true,
-        currentLocation:true
+        currentLocation:true,
+        language:"en"
     },
     reducers:{
         addApiResponse:(state,action)=>{
@@ -27,9 +28,12 @@ const dataSlice = createSlice({
          },
          setcurrentLocation:(state)=>{
             state.currentLocation = !state.currentLocation
+         },
+         changeLanguage:(state,action)=>{
+            state.language = action.payload
          }
     }
 })
 
-export const {addApiResponse, OpenPopup, setLatLong, setLocationChange, setcurrentLocation} = dataSlice.actions
+export const {addApiResponse, OpenPopup, setLatLong, setLocationChange, setcurrentLocation, changeLanguage} = dataSlice.actions
 export default dataSlice.reducer

@@ -12,8 +12,8 @@ const WhatsOnMind = ({whatsOnMind}) => {
       BannerImgs.map((img,index) => {
         return (
           <>
-           <Link to={img.action.link.replace('https://www.swiggy.com/','/')}>
-          <img key={index} className="w-36 max-w-none" src={BASE_URL+img.imageId} alt={img.action.text} />
+           <Link key={index} to={img.action.link.replace('https://www.swiggy.com/','/')}>
+          <img className="w-36 max-w-none" src={BASE_URL+img.imageId} alt={img.action.text} />
             </Link> 
           </>
       
